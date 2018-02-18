@@ -1,0 +1,1 @@
+https://scalegrid.io/blog/cassandra-vs-mongodb/

@@ -1,0 +1,38 @@
+rank sql query ->
+         select name , count(salary) rank from 
+          (select e.name , e.salary from emp e inner join emp e1 on e.salary <= e1.salary) as em 
+            group by name order by rank ;
+
+employee salary greater then his manager ->
+          select * from emp e inner join emp e1 on e.mId=e1.id where e.salary>e1.salary
+
+2nd max salary employee ->
+          select name, max(salary) from emp where salary< (select max(salary) from emp)
+ 
+ 
+ name, score, city
+ it     20  ,  del
+ it     30  ,  ban
+ it     40  ,  mub
+ 
+ name  maxScore max_score_city, min_score , min_score_city 
+ 
+ 
+ get complete row info after using group clause ->
+          select s1.* from score s1 inner join (select type ,max(point) as p from score group by type) 
+          as s2 on s1.point =s2.p where s1.type=s2.type;
+          
+          select * from (select s1.* from score s1 inner join (select type ,max(point) as 
+          p from score group by type) as s2 on s1.point =s2.p where s1.type=s2.type) as sa inner join 
+          (select s1.* from score s1 inner join (select type ,min(point) as p 
+           from score group by type) as s2 on s1.point =s2.p where s1.type=s2.type) as sb on sa.type=sb.type;
+           
+           
+           
+     select t1.eid,t1.employeeName,t1.primarySkill_Id,t1.primary_skill,t2.secondarySkill_Id,t2.secondary_skill 
+     from (select e.eid,e.name as 'employeeName',s.sid as 'primarySkill_Id',s.name as 'primary_skill' 
+     from employee e,skill s, employeeskill es where e.eid=es.eid and s.sid=es.sid and es.isPrimary=1) as t1 
+     inner join 
+     (select e.eid,e.name as 'employeeName',s.sid as 'secondarySkill_Id',s.name as 'secondary_skill' 
+     from employee e, skill s, employeeskill es where e.eid=es.eid and s.sid=es.sid and es.isPrimary=0) 
+     as t2 on t1.eid=t2.eid;      
